@@ -11,7 +11,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signUp(user: IUser): Promise<string> {
+  async signUp(user: IUser): Promise<{ accessToken: string }> {
     const hashedPassword = await bcrypt.hash(user.password, 12);
     const createdUser = await this.usersService.create({
       name: user.name,
@@ -20,7 +20,7 @@ export class AuthService {
     });
 
     Logger.log(
-      `User created successfully. name: ${createdUser.name} userID: ${createdUser.userID}`,
+      `User has been created successfully. email: ${createdUser.email} userID: ${createdUser.userID}`,
     );
 
     const accessToken = this.jwtService.sign({
@@ -28,10 +28,13 @@ export class AuthService {
       sub: createdUser.userID,
     });
 
-    return accessToken;
+    return { accessToken };
   }
 
-  async signIn(email: string, password: string): Promise<string> {
+  async signIn(
+    email: string,
+    password: string,
+  ): Promise<{ accessToken: string }> {
     const user = await this.usersService.findOneByEmail(email);
 
     if (user == null || !(await bcrypt.compare(password, user.password))) {
@@ -42,6 +45,9 @@ export class AuthService {
       email: user.email,
     });
 
-    return accessToken;
+    Logger.log(
+      `User has signed-in successfully! email: ${email}, userID: ${user.userID}`,
+    );
+    return { accessToken };
   }
 }
