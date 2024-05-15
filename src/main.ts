@@ -8,7 +8,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.getOrThrow("port");
   await app.listen(port);
-  return port;
+  Logger.log(`Application started on port ${port}`);
 }
 
-bootstrap().then(port => Logger.log(`Application started on port ${port}`));
+bootstrap().catch(err => Logger.error("Error while starting the app:", err));
