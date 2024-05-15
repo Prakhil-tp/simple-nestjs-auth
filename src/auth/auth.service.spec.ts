@@ -12,7 +12,7 @@ const mockUserService = {
 };
 
 const mockJwtService = {
-  sign: jest.fn().mockResolvedValue("mock-access-token"),
+  sign: jest.fn().mockReturnValue("mock-access-token"),
 };
 
 describe("AuthService", () => {
