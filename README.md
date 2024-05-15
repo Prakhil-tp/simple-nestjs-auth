@@ -6,8 +6,8 @@ This application serves APIs for user sign-up and sign-in functionalities.
 
 ## Endpoints
 ```http
- POST /auth/sign-up
- POST /auth/sign-in
+POST /auth/sign-up
+POST /auth/sign-in
 ```
 ## Installation
 
