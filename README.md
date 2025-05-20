@@ -1,4 +1,4 @@
-# EasyGenerator Test
+# Simple signIn/signUp using nestjs
  
 ## Description
 
